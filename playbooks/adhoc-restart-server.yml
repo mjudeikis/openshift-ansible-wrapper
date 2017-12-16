@@ -1,0 +1,5 @@
+---
+- hosts: all
+  serial: 1
+  roles:
+    - { role: ocp-adhoc-actions, ocp_action: restart_server }

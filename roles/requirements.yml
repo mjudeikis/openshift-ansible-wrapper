@@ -1,0 +1,15 @@
+# Install a role from the Ansible Galaxy
+#- src: dfarrell07.opendaylight
+
+# Install a role from GitHub
+#- name: opendaylight
+#  src: https://github.com/dfarrell07/ansible-opendaylight
+
+# Install a role from a specific gitlab
+- name: docker
+  src: https://github.com/mjudeikis/ansible-docker.git
+  scm: git
+
+- name: subscription
+  src: https://github.com/mjudeikis/ansible-rh-subscription-manager.git
+  scm: git

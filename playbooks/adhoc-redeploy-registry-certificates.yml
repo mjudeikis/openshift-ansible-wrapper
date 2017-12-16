@@ -1,0 +1,2 @@
+---
+- include: ../openshift-ansible/playbooks/byo/openshift-cluster/redeploy-registry-certificates.yml

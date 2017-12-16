@@ -1,0 +1,93 @@
+#for openshift to work we need to relax hosts.allow file/rules
+
+#common ansible configuration
+ansible_ssh_user: root
+ansible_become: no
+invetory_provider: terraform
+
+# OCP PRE config
+rh_username: xxxx
+rh_password: xxxxx
+rh_pool: xxxxx
+rh_repos:
+ - rhel-7-server-rpms
+ - rhel-7-server-extras-rpms
+ - rhel-7-server-ose-3.7-rpms
+ - rhel-7-fast-datapath-rpms
+ - rh-gluster-3-for-rhel-7-server-rpms
+
+ocp_pre_packages:
+ - wget 
+ - git 
+ - net-tools 
+ - bind-utils 
+ - iptables-services 
+ - bridge-utils 
+ - bash-completion 
+ - kexec-tools 
+ - sos 
+ - psacct
+
+docker_storage_disk: /dev/xvdc
+
+######## Openshift Default Config
+#config, needed to be updated each install
+ssh_key: ~/.ssh/id_rsa
+openshift_master_cluster_hostname: ip-172-18-0-140.ec2.internal
+openshift_master_cluster_public_hostname: ip-172-18-0-140.ec2.internal
+openshift_master_default_subdomain: apps.54.172.18.0.140.xip.io
+openshift_hosted_router_force_subdomain: "'${name}-${namespace}.apps.54.172.18.0.140.xip.io'"
+
+#static config
+containerized: true
+deployment_type: openshift-enterprise
+openshift_release: "v3.7"
+openshift_docker_additional_registries: registry.access.redhat.com
+openshift_docker_disable_push_dockerhub: True
+openshift_docker_options: "--selinux-enabled --log-driver=json-file --log-opt max-size=50m --ipv6=false"
+osm_controller_lease_ttl: 30
+openshift_master_htpasswd_users: {'admin': '$apr1$m3IT5Wa4$EMAP84Ntp/QSR2SZVFRMu.', 'user': '$apr1$jcQ/OofR$.2oK.KhiUycvk4gLcQxHR.'}
+openshift_master_identity_providers: [{'name': 'htpasswd', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+
+openshift_node_kubelet_args: {'pods-per-core': ['70'], 'max-pods': ['254'], 'image-gc-high-threshold': ['90'], 'image-gc-low-threshold': ['80'],'kube-reserved': ['cpu=500m,memory=1.5G'], 'system-reserved': ['cpu=500m,memory=1.5G'] }
+
+osm_use_cockpit: true
+osm_cockpit_plugins: "['cockpit-kubernetes']"
+openshift_master_cluster_method: native
+openshift_master_access_token_max_seconds: 86400
+openshift_master_auth_token_max_seconds: 500
+openshift_master_max_requests_inflight: 500
+openshift_hosted_router_selector: "'ocp-node-type=infra'"
+openshift_hosted_registry_selector: "'ocp-node-type=ainfra'"
+osm_default_node_selector: 'ocp-node-type=app-services'
+openshift_schedulable_master: "false"
+openshift_schedulable_etcd: "false"
+openshift_hosted_router_replicas: 1
+openshift_hosted_registry_replicas: 1
+os_sdn_network_plugin_name: "'redhat/openshift-ovs-multitenant'"
+osm_cluster_network_cidr: 10.1.0.0/16
+openshift_portal_net: 172.30.0.0/16
+openshift_master_api_port: 443
+openshift_master_console_port: 443
+openshift_master_session_name: ssn
+openshift_master_session_max_seconds: 3600
+openshift_set_hostname: false
+logrotate_scripts: "[{\"name\": \"syslog\", \"path\": \"/var/log/cron\\n/var/log/maillog\\n/var/log/messages\\n/var/log/secure\\n/var/log/spooler\\n\", \"options\": [\"daily\", \"rotate 7\", \"compress\", \"sharedscripts\", \"missingok\"], \"scripts\": {\"postrotate\": \"/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true\"}}]"
+openshift_clock_enabled: true
+openshift_install_examples: true
+openshift_master_api_env_vars: "{\"ENABLE_HTTP2\": \"true\"}"
+openshift_master_controllers_env_vars: "{\"ENABLE_HTTP2\": \"true\"}"
+openshift_node_env_vars: "{\"ENABLE_HTTP2\": \"true\"}"
+#openshift_master_audit_config: "{\"enabled\": true, \"auditFilePath\": \"/var/log/audit-ocp.log\", \"maximumFileRetentionDays\": 10, \"maximumFileSizeMegabytes\": 10, \"maximumRetainedFiles\": 10}"
+openshift_master_audit_config: {"basicAuditEnabled": true}
+
+openshift_hosted_registry_storage_kind: glusterfs
+#openshift_metrics_hawkular_cert: "{{inventory_dir}}/../files/certs/xxxxxx.crt"
+#openshift_metrics_hawkular_key: "{{inventory_dir}}/../files/certs/xxxxxx.key"
+#openshift_metrics_cassandra_replicas: 3
+#openshift_http_proxy: http://proxy.xxxxxxx:8080
+#openshift_https_proxy: https://proxy.xxxxxxx:8080
+#openshift_builddefaults_http_proxy: http://proxy.xxxxxxx:8080
+#openshift_builddefaults_https_proxy: https://proxy.xxxxxxx:8080
+#openshift_builddefaults_git_http_proxy: http://proxy.xxxxxxx:8080
+#openshift_builddefaults_git_https_proxy: https://proxy.xxxxxxx:8080

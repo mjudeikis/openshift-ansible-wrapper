@@ -1,0 +1,8 @@
+---
+- name: Uninstall openshift-metrics
+  hosts: masters[0]
+  vars:
+    openshift_metrics_install_metrics: False
+
+  roles:
+  - role: openshift_metrics

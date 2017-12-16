@@ -1,0 +1,5 @@
+---
+- hosts: masters[0]
+  roles:
+    - lib_openshift
+    - { role: ocp-registry, openshift_imagesync_job_deploy: True }

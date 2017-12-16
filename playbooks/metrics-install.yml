@@ -1,0 +1,16 @@
+---
+- name: Install openshift-metrics
+  hosts: masters[0]
+  vars:
+    openshift_metrics_install_metrics: True
+
+  # Required local dependencies
+  pre_tasks:
+    - name: Ensure httpd-tools is installed
+      local_action: yum name=httpd-tools state=present
+
+    - name: Ensure python2-passlib is installed
+      local_action: yum name=python2-passlib state=present
+
+  roles:
+  - role: openshift_metrics

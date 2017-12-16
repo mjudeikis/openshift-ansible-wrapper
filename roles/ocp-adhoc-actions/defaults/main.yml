@@ -1,0 +1,6 @@
+---
+# defaults file for ocp-adhoc-actions
+
+master_service_list: ['atomic-openshift-master-api', 'atomic-openshift-master-controllers']
+docker_service_list: ['docker']
+chronyd_service_list: ['chronyd']

@@ -1,0 +1,5 @@
+---
+- hosts: masters
+  serial: 1
+  roles:
+    - { role: ocp-adhoc-actions, ocp_action: restart_master_proc }

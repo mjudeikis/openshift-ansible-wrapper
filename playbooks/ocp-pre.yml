@@ -1,0 +1,10 @@
+---
+- hosts: all
+  roles:
+   - ocp-pre-hooks
+   - subscription
+   - docker
+
+- hosts: masters
+  roles:
+   - ocp-pre-hooks-masters

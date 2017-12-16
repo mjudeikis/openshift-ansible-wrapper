@@ -1,0 +1,34 @@
+---
+# tasks file for ocp-adhoc-actions
+
+- name: restart master services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+   - "{{ master_service_list }}"
+  when: ocp_action == 'restart_master_proc'
+
+- name: restart docker services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+   - "{{ docker_service_list }}"
+  when: ocp_action == 'restart_docker_proc'
+
+- name: restart chronyd services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+   - "{{ chronyd_service_list }}"
+  when: ocp_action == 'restart_chronyd_proc' 
+
+- name: Reboot server
+  shell: sleep 2 && /sbin/reboot
+  async: 1
+  poll: 0
+  when: ocp_action == 'restart_server' 
+
+#todo: add waiting for reboot

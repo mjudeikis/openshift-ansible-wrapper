@@ -1,0 +1,2 @@
+glusterfs_devices: '["/dev/xvdd"]'
+openshift_node_labels: "{'ocp-node-type':'storage','logging-infra-fluentd':'true', 'zone': 'az1'}"
