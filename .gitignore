@@ -1,0 +1,7 @@
+*.retry
+.vagrant
+*.zip
+openshift-ansible
+terraform/*
+roles/docker
+roles/subscription

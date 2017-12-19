@@ -6,9 +6,9 @@ ansible_become: no
 invetory_provider: terraform
 
 # OCP PRE config
-rh_username: xxxx
-rh_password: xxxxx
-rh_pool: xxxxx
+rh_username: xxxxxx
+rh_password: xxxxxxx
+rh_pool: xxxxxxx
 rh_repos:
  - rhel-7-server-rpms
  - rhel-7-server-extras-rpms
@@ -32,14 +32,24 @@ docker_storage_disk: /dev/xvdc
 
 ######## Openshift Default Config
 #config, needed to be updated each install
-ssh_key: ~/.ssh/id_rsa
-openshift_master_cluster_hostname: ip-172-18-0-140.ec2.internal
-openshift_master_cluster_public_hostname: ip-172-18-0-140.ec2.internal
-openshift_master_default_subdomain: apps.54.172.18.0.140.xip.io
-openshift_hosted_router_force_subdomain: "'${name}-${namespace}.apps.54.172.18.0.140.xip.io'"
+ansible_ssh_private_key_file: /home/mjudeiki/.ssh/id_rsa
+openshift_master_cluster_hostname: ec2-54-147-119-223.compute-1.amazonaws.com
+openshift_master_cluster_public_hostname: ec2-54-147-119-223.compute-1.amazonaws.com
+openshift_master_default_subdomain: apps.107.21.195.72.xip.io
+openshift_hosted_router_force_subdomain: "'${name}-${namespace}.apps.107.21.195.72.xip.io'"
+
+openshift_disable_check: memory_availability
+ansible_service_broker_install: false
+
+#deploy gluster block
+openshift_storage_glusterfs_registry_block_deploy: true
 
 #static config
 containerized: true
+# these are needed due: https://bugzilla.redhat.com/show_bug.cgi?id=1460999
+is_atomic: false
+is_containerized: true
+
 deployment_type: openshift-enterprise
 openshift_release: "v3.7"
 openshift_docker_additional_registries: registry.access.redhat.com
@@ -57,9 +67,10 @@ openshift_master_cluster_method: native
 openshift_master_access_token_max_seconds: 86400
 openshift_master_auth_token_max_seconds: 500
 openshift_master_max_requests_inflight: 500
-openshift_hosted_router_selector: "'ocp-node-type=infra'"
-openshift_hosted_registry_selector: "'ocp-node-type=ainfra'"
-osm_default_node_selector: 'ocp-node-type=app-services'
+openshift_hosted_router_selector: 'type=infra'
+openshift_hosted_registry_selector: 'type=infra'
+template_service_broker_selector: { "type": "infra" }
+osm_default_node_selector: 'type=app-services'
 openshift_schedulable_master: "false"
 openshift_schedulable_etcd: "false"
 openshift_hosted_router_replicas: 1
@@ -67,8 +78,8 @@ openshift_hosted_registry_replicas: 1
 os_sdn_network_plugin_name: "'redhat/openshift-ovs-multitenant'"
 osm_cluster_network_cidr: 10.1.0.0/16
 openshift_portal_net: 172.30.0.0/16
-openshift_master_api_port: 443
-openshift_master_console_port: 443
+#openshift_master_api_port: 443
+#openshift_master_console_port: 443
 openshift_master_session_name: ssn
 openshift_master_session_max_seconds: 3600
 openshift_set_hostname: false

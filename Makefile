@@ -21,18 +21,18 @@ setup-ansible:
 	rm -rf ./openshift-ansible && \
 	git clone https://github.com/openshift/openshift-ansible.git -b release-3.7
 
-terraform-plan-aws:
+terraform-aws-plan:
 	cd terraform/openshift-terraform-ansible/ec2 && \
 	make plan
 
-terraform-apply-aws:
+terraform-aws-apply:
 	cd terraform/openshift-terraform-ansible/ec2 && \
 	make apply
 
-ansible-terraform-print:
+terraform-ansible-print:
 	./terraform/terraform-inventory --list ${TF_STATE} | python -m json.tool
 
-ansible-terraform-test:
+terraform-ansible-test:
 	echo "Masters" && \
 	TF_STATE=${TF_STATE} ansible role_masters -i ./terraform/terraform-inventory -a hostname && \
 	echo "Nodes" && \
@@ -40,12 +40,27 @@ ansible-terraform-test:
 	echo "GlusterFS" && \
 	TF_STATE=${TF_STATE} ansible role_glusterfs -i ./terraform/terraform-inventory -a hostname
 	
-
-ansible-terraform-install:
+terraform-ansible-install:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install.yml
 
-ansible-terraform-pre:
+terraform-ansible-pre:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-pre.yml
 
-ansible-terraform-post:
+terraform-ansible-post:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-post.yml
+
+terraform-ansible-uninstall:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-uninstall.yml
+
+terraform-ansible-install-gluster:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-glusterfs.yml
+
+terraform-ansible-install-hosted:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-hosted.yml
+
+terraform-ansible-restart-docker:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc-restart-docker.yml
+
+terraform-ansible-restart-masterproc:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc-restart-master-proc.yml
+

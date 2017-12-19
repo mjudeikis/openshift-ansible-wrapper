@@ -1,0 +1,62 @@
+---
+
+# ansible host file overides
+# masters in dev case are etcd, nodes, infra and masters
+- name: overide groups for terraform
+  add_host: name={{ item[0] }} groups={{ item[1]}} 
+  with_nested: 
+   - "{{ groups['role_masters'] }}"
+   - [ 'masters', 'etcd' ]
+  when: invetory_provider == "terraform"
+
+#add infra nodes to infra nodes
+- name: overide groups for terraform
+  add_host: name={{ item[0] }} groups={{ item[1]}} 
+  with_nested: 
+   - "{{ groups['role_infra'] }}"
+   - [ 'infra' ]
+  when: invetory_provider == "terraform"  
+
+# ansible host file overides
+# everything are nodes
+- name: overide groups for terraform
+  add_host: name={{ item[0] }} groups={{ item[1]}} 
+  with_nested: 
+   - "{{ groups['all'] }}"
+   - [ 'nodes' ]
+  when: invetory_provider == "terraform"
+
+# ansible host file overides
+# glusterfs are in separete group
+- name: overide groups for terraform
+  add_host: name={{ item[0] }} groups={{ item[1]}} 
+  with_nested: 
+   - "{{ groups['role_glusterfs'] }}"
+   - [ 'glusterfs' ]
+  when: invetory_provider == "terraform"
+
+# our nodes has different set of labels. using group_vars we dont set labels on nodes as it would overwrite them on everything. we use worker for node labels.
+- name: overide groups for terraform
+  add_host: name={{ item[0] }} groups={{ item[1]}} 
+  with_nested: 
+   - "{{ groups['role_nodes'] }}"
+   - [ 'workers' ]
+  when: invetory_provider == "terraform"
+
+
+- name: set glusterfs_ip address env variable
+  set_fact:
+    gluster_ip: "{{ ansible_default_ipv4.address }}"
+
+- name: print all ansible groups
+  debug:
+    msg: "{{ groups }}"
+
+# tasks file for ocp-pre-hooks
+
+- name: Install required packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ ocp_pre_packages }}"
+  when: not containerized == true

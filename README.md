@@ -19,11 +19,19 @@ Execution
 ------------
 ```
     make setup - setups terraform dependencies, ocp-terraform deployment project and ansible
-    make terraform-plan-aws - shows plan for aws terraform provisioner
-    make terraform-apply-aws - applies/provisions aws infrastructure using terraform
+    #make note that reruning setup will destroy current state
+    make terraform-aws-plan - shows plan for aws terraform provisioner
+    make terraform-aws-apply - applies/provisions aws infrastructure using terraform
 
     make ansible-terraform-print - prints group data in json using dynamic invetory
     make ansible-terraform-test - tests ssh connection using dynamic invetory
+    make ansible-terraform-install - executes openshift-ansible install playbooks using terraform dynamic invetory
+
+    make ansible-terraform-pre - executes pre-requisites playbooks
+    make ansible-terraform-post - executes post-requisites playbooks
+    make ansible-terraform-install - executes Red Hat core openshift-ansible install playbooks
+
+    #and few more in make file
 ```    
 
 Terraform:

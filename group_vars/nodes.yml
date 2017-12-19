@@ -1,2 +1,1 @@
-openshift_schedulable: false 
-openshift_node_labels: "{'ocp-node-type':'app-services','logging-infra-fluentd':'true', 'zone': 'az1'}"
+openshift_schedulable: true 
