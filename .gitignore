@@ -5,3 +5,4 @@ openshift-ansible
 terraform/*
 roles/docker
 roles/subscription
+roles/ssh

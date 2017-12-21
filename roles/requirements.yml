@@ -13,3 +13,7 @@
 - name: subscription
   src: https://github.com/mjudeikis/ansible-rh-subscription-manager.git
   scm: git
+
+- name: ssh
+  src: https://github.com/mjudeikis/ansible-ssh-setup.git
+  scm: git

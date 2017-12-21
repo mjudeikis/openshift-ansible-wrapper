@@ -1,12 +1,15 @@
 MAKEFLAGS += --silent
 TERRAFORM_ANSIBLE=https://github.com/adammck/terraform-inventory/releases/download/v0.7-pre/terraform-inventory_v0.7-pre_linux_amd64.zip
+TERRAFORM_BINARY=https://releases.hashicorp.com/terraform/0.11.1/terraform_0.11.1_linux_amd64.zip
 TF_STATE=./terraform/openshift-terraform-ansible/ec2/terraform.tfstate
 
 setup: setup-terraform setup-ocp-terraform setup-ansible
 
 setup-terraform:
 	wget ${TERRAFORM_ANSIBLE} -O /tmp/terraform.zip && \
-	unzip -o /tmp/terraform.zip -d ./terraform/ 
+	unzip -o /tmp/terraform.zip -d ./terraform/ && \
+	wget ${TERRAFORM_BINARY} -O /tmp/terraform_binary.zip && \
+	unzip -o /tmp/terraform_binary.zip -d /usr/local/bin/
 
 setup-ocp-terraform:
 	rm -rf ./terraform/openshift-terraform-ansible && \
@@ -39,7 +42,10 @@ terraform-ansible-test:
 	TF_STATE=${TF_STATE} ansible role_nodes -i ./terraform/terraform-inventory -a hostname && \
 	echo "GlusterFS" && \
 	TF_STATE=${TF_STATE} ansible role_glusterfs -i ./terraform/terraform-inventory -a hostname
-	
+
+terraform-ansible-install-bastion:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/install-bastion.yml
+
 terraform-ansible-install:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install.yml
 
@@ -57,6 +63,9 @@ terraform-ansible-install-gluster:
 
 terraform-ansible-install-hosted:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-hosted.yml
+
+terraform-ansible-install-prometheus:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-prometheus.yml
 
 terraform-ansible-restart-docker:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc-restart-docker.yml

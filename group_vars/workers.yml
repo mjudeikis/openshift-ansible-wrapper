@@ -1,1 +1,1 @@
-openshift_node_labels: "{'ocp-node-type':'app-services','logging-infra-fluentd':'true', 'zone': 'az1'}"
+openshift_node_labels: "{'type':'app-services','logging-infra-fluentd':'true', 'zone': 'az1'}"

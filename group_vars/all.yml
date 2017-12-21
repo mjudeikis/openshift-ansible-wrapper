@@ -8,7 +8,7 @@ invetory_provider: terraform
 # OCP PRE config
 rh_username: xxxxxx
 rh_password: xxxxxxx
-rh_pool: xxxxxxx
+rh_pool: rh_pool: xxxxxxx
 rh_repos:
  - rhel-7-server-rpms
  - rhel-7-server-extras-rpms
@@ -33,10 +33,10 @@ docker_storage_disk: /dev/xvdc
 ######## Openshift Default Config
 #config, needed to be updated each install
 ansible_ssh_private_key_file: /home/mjudeiki/.ssh/id_rsa
-openshift_master_cluster_hostname: ec2-54-147-119-223.compute-1.amazonaws.com
-openshift_master_cluster_public_hostname: ec2-54-147-119-223.compute-1.amazonaws.com
-openshift_master_default_subdomain: apps.107.21.195.72.xip.io
-openshift_hosted_router_force_subdomain: "'${name}-${namespace}.apps.107.21.195.72.xip.io'"
+openshift_master_cluster_hostname: ec2-54-89-244-14.compute-1.amazonaws.com
+openshift_master_cluster_public_hostname: ec2-54-89-244-14.compute-1.amazonaws.com
+openshift_master_default_subdomain: apps.34.230.6.166.xip.io
+openshift_hosted_router_force_subdomain: "'${name}-${namespace}.apps.34.230.6.166.xip.io'"
 
 openshift_disable_check: memory_availability
 ansible_service_broker_install: false
@@ -59,9 +59,43 @@ osm_controller_lease_ttl: 30
 openshift_master_htpasswd_users: {'admin': '$apr1$m3IT5Wa4$EMAP84Ntp/QSR2SZVFRMu.', 'user': '$apr1$jcQ/OofR$.2oK.KhiUycvk4gLcQxHR.'}
 openshift_master_identity_providers: [{'name': 'htpasswd', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
-openshift_node_kubelet_args: {'pods-per-core': ['70'], 'max-pods': ['254'], 'image-gc-high-threshold': ['90'], 'image-gc-low-threshold': ['80'],'kube-reserved': ['cpu=500m,memory=1.5G'], 'system-reserved': ['cpu=500m,memory=1.5G'] }
+#openshift_node_kubelet_args: {'pods-per-core': ['70'], 'max-pods': ['254'], 'image-gc-high-threshold': ['90'], 'image-gc-low-threshold': ['80'],'kube-reserved': ['memory=500Mi'], 'system-reserved': ['memory=500Mi'] }
+
+#prometheus
+openshift_hosted_prometheus_deploy: true
+openshift_prometheus_storage_type: pvc
+#openshift_prometheus_pvc_name: prometheus
+#openshift_prometheus_pvc_size: 10Gi
+#openshift_prometheus_pvc_access_modes: [ReadWriteOnce] 
+#openshift_prometheus_pvc_pv_selector: ""
+#openshift_prometheus_sc_name: "glusterfs-storage"
+
+openshift_prometheus_alertmanager_storage_type: pvc
+#openshift_prometheus_alertmanager_pvc_name: prometheus-alertmanager
+#openshift_prometheus_alertmanager_pvc_size: 10Gi
+#openshift_prometheus_alertmanager_pvc_access_modes: [ReadWriteOnce]
+#openshift_prometheus_alertmanager_pvc_pv_selector: ""
+#openshift_prometheus_alertmanager_sc_name: "glusterfs-storage"
+
+openshift_prometheus_alertbuffer_storage_type: pvc
+#openshift_prometheus_alertbuffer_pvc_name: prometheus-alertbuffer
+#openshift_prometheus_alertbuffer_pvc_size: 10Gi"
+#openshift_prometheus_alertbuffer_pvc_access_modes: [ReadWriteOnce]
+#openshift_prometheus_alertbuffer_pvc_pv_selector: ""
+#openshift_prometheus_alertbuffer_sc_name: ""
+
+
+openshift_prometheus_storage_class: glusterfs-storage
+openshift_prometheus_alertmanager_pvc_name: alertmanager
+openshift_prometheus_alertbuffer_pvc_size: 10G
+openshift_prometheus_alertbuffer_pvc_name: alertbuffer
+openshift_prometheus_alertbuffer_pvc_size: 10G
+openshift_prometheus_pvc_access_modes: [ReadWriteOnce]
+
+openshift_prometheus_node_selector: {"type":"app-services"}
 
 osm_use_cockpit: true
+openshift_storage_glusterfs_storageclass_default: true
 osm_cockpit_plugins: "['cockpit-kubernetes']"
 openshift_master_cluster_method: native
 openshift_master_access_token_max_seconds: 86400
