@@ -2,7 +2,8 @@
 .vagrant
 *.zip
 openshift-ansible
-terraform/*
+terraform/openshift*
+terraform/terraform*
 roles/docker
 roles/subscription
 roles/ssh

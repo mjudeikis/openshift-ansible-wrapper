@@ -1,4 +1,9 @@
 ---
+
+#TODO:
+# make all these overides in one nested loop
+# add check if group is not defined
+
 # ansible host file overides
 # masters in dev case are etcd, nodes, infra and masters
 - name: overide groups for terraform
@@ -6,9 +11,7 @@
   with_nested: 
    - "{{ groups['role_masters'] }}"
    - [ 'masters', 'etcd' ]
-  when:
-   - "'role_masters' in group_names"
-   - invetory_provider == "terraform""
+  when: invetory_provider == "terraform"
 
 #add infra nodes to infra nodes
 - name: overide groups for terraform
@@ -16,9 +19,7 @@
   with_nested: 
    - "{{ groups['role_infra'] }}"
    - [ 'infra' ]
-  when:
-   - "'role_infra' in group_names"
-   - invetory_provider == "terraform"
+  when: invetory_provider == "terraform"
 
 # ansible host file overides
 # everything are nodes
@@ -36,9 +37,7 @@
   with_nested: 
    - "{{ groups['role_glusterfs'] }}"
    - [ 'glusterfs' ]
-  when:
-   - "'role_glusterfs' in group_names"
-   - invetory_provider == "terraform"
+  when: invetory_provider == "terraform"
 
 # our nodes has different set of labels. using group_vars we dont set labels on nodes as it would overwrite them on everything. we use worker for node labels.
 - name: overide groups for terraform
@@ -46,9 +45,7 @@
   with_nested: 
    - "{{ groups['role_nodes'] }}"
    - [ 'workers' ]
-  when:
-   - "'role_nodes' in group_names"
-   - invetory_provider == "terraform"
+  when: invetory_provider == "terraform"
 
 # ansible host file overides
 # bastion are in separete group
@@ -57,9 +54,7 @@
   with_nested: 
    - "{{ groups['role_bastion'] }}"
    - [ 'bastion' ]
-  when:
-   - "'role_bastion' in group_names"
-   - invetory_provider == "terraform"
+  when: invetory_provider == "terraform"
 
 
 - name: set glusterfs_ip address env variable
@@ -68,7 +63,14 @@
 
 - name: print all ansible groups
   debug:
+    msg: "{{ group_names }}"
+  run_once: true
+
+
+- name: print all ansible groups
+  debug:
     msg: "{{ groups }}"
+  run_once: true
 
 # tasks file for ocp-pre-hooks
 
