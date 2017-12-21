@@ -22,10 +22,23 @@
     - name: Clean artifact path
       file:
         state: absent
-        path: "openshift-ansible-wrapper"
+        path: "~/openshift-ansible-wrapper"
 
     - name: clone ocp-ansible-wrapper project
-      command: git clone https://github.com/mjudeikis/openshift-ansible-wrapper.git 
+      command: "{{ item }}"
       with_items:
        - "git clone https://github.com/mjudeikis/openshift-ansible-wrapper.git"
-       - "cd openshift-ansible-wrapper && make setup"
+
+    - make:
+        chdir: /root/openshift-ansible-wrapper
+        target: setup   
+
+    - name: Copy my config onto Bastion for dynamic invetory
+      copy:
+        src: "../{{ item }}"
+        dest: "~/openshift-ansible-wrapper/{{ item }}"
+      with_items:
+        - terraform/openshift-terraform-ansible/ec2/credentials.tfvars
+        - terraform/openshift-terraform-ansible/ec2/config.tfvars
+        - terraform/openshift-terraform-ansible/ec2/terraform.tfstate
+        - group_vars/all.yml
