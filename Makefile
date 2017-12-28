@@ -64,6 +64,9 @@ terraform-ansible-install-gluster:
 terraform-ansible-install-hosted:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-hosted.yml
 
+terraform-ansible-install-metrics:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-metrics.yml
+
 terraform-ansible-install-prometheus:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-prometheus.yml
 
