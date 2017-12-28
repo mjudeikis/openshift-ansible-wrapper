@@ -26,8 +26,8 @@
 - name: overide groups for terraform
   add_host: name={{ item[0] }} groups={{ item[1]}} 
   with_nested: 
-   - "{{ groups['all'] }}"
-   - [ 'nodes' ]
+   - "{{ groups['role_nodes'] + groups['role_glusterfs'] + groups['role_glusterfs'] + groups['role_masters']  + groups['role_infra']  }}"
+   - ['nodes']
   when: invetory_provider == "terraform"
 
 # ansible host file overides
