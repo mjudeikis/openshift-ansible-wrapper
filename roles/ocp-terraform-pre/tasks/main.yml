@@ -26,7 +26,7 @@
 - name: overide groups for terraform
   add_host: name={{ item[0] }} groups={{ item[1]}} 
   with_nested: 
-   - "{{ groups['role_nodes'] + groups['role_glusterfs'] + groups['role_glusterfs'] + groups['role_masters']  + groups['role_infra']  }}"
+   - "{{ groups['role_nodes'] + groups['role_masters']  + groups['role_infra']  }}"
    - ['nodes']
   when: invetory_provider == "terraform"
 
@@ -36,8 +36,10 @@
   add_host: name={{ item[0] }} groups={{ item[1]}} 
   with_nested: 
    - "{{ groups['role_glusterfs'] }}"
-   - [ 'glusterfs' ]
-  when: invetory_provider == "terraform"
+   - [ 'glusterfs', 'nodes' ]
+  when:
+   - invetory_provider == "terraform"
+   - "{{ groups.role_glusterfs | default(false) }}"
 
 # our nodes has different set of labels. using group_vars we dont set labels on nodes as it would overwrite them on everything. we use worker for node labels.
 - name: overide groups for terraform

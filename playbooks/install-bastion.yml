@@ -18,6 +18,9 @@
         - git
         - unzip
         - ansible
+        - python-passlib
+        - httpd-tools
+        - java-1.8.0-openjdk-headless
 
     - name: Clean artifact path
       file:
