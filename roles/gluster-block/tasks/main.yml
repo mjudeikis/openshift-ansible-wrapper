@@ -1,0 +1,29 @@
+---
+# tasks file for docker
+
+- name: Load device-mapper module
+  shell: modprobe "{{ item }}"
+  with_items:
+    - dm_thin_pool
+    - dm_multipath
+    - target_core_user
+
+
+- name: Copy modules templates
+  template:
+    src: "{{ item }}"
+    dest: /etc/modules-load.d/{{ item | basename | regex_replace('\.j2','') }}
+  with_fileglob:
+    - ../templates/module.conf/*.j2
+
+# ref. https://github.com/vmware/ansible-etcd-cluster/blob/master/tasks/main.yml
+- name: Install rpcbind unit
+  shell: systemctl add-wants multi-user rpcbind.service
+  register: rpcbind_install
+  changed_when: "'Created symlink' in rpcbind_install.stdout + rpcbind_install.stderr"
+
+- name: enable service rpcbind
+  systemd:
+    name: rpcbind
+    enabled: yes
+    state: started

@@ -1,0 +1,8 @@
+---
+
+- name: Configure invetory groups
+  hosts: glusterfs
+  
+  roles:
+  - { role: ocp-terraform-pre, when: invetory_provider == "terraform" }
+  - gluster-block

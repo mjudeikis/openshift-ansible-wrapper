@@ -49,6 +49,9 @@ terraform-ansible-install-bastion:
 terraform-ansible-install:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install.yml
 
+terraform-ansible-adhoc:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc.yml -v
+
 terraform-ansible-pre:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-pre.yml
 
@@ -58,8 +61,11 @@ terraform-ansible-post:
 terraform-ansible-uninstall:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-uninstall.yml
 
-terraform-ansible-install-gluster:
+terraform-ansible-install-glusterfs:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-glusterfs.yml
+
+terraform-ansible-install-glusterfs-block:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-glusterfs-block.yml
 
 terraform-ansible-install-hosted:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-hosted.yml

@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Mangirdas Judeikis
+  description: RedHat/CentOS configuration for gluster-block.
+  company: "Midwestern Mac, LLC"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+      - 6
+      - 7
+  galaxy_tags:
+    - cloud
+    - system
+    - docker
+    - development

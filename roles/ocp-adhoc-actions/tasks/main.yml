@@ -1,2 +1,4 @@
-- include: restart.yml
-- include: force.yml
+---
+# for those "hackerman" who do not use sub manager and thinks that this is good way to manage repos :)
+  - name: command
+    shell: "yum upgrade --disablerepo=* --enablerepo=rhel-7-server-rpms -y"

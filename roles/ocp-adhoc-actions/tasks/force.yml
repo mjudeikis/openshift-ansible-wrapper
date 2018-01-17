@@ -1,6 +1,0 @@
----
-# tasks file for ocp-adhoc-actions
-
-- name: force time sync
-  command: chronyc -a "burst 3/4"
-  when: ocp_action == 'force_time_sync'
