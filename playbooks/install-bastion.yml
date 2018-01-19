@@ -2,6 +2,7 @@
 
 - name: Configure invetory groups
   hosts: all
+  become: true
   
   roles:
   - { role: ocp-terraform-pre, when: invetory_provider == "terraform" }
@@ -16,6 +17,7 @@
         state: latest
       with_items:
         - git
+        - wget
         - unzip
         - ansible
         - python-passlib
@@ -25,21 +27,22 @@
     - name: Clean artifact path
       file:
         state: absent
-        path: "~/openshift-ansible-wrapper"
+        path: "/root/openshift-ansible-wrapper"
 
     - name: clone ocp-ansible-wrapper project
       command: "{{ item }}"
       with_items:
-       - "git clone https://github.com/mjudeikis/openshift-ansible-wrapper.git"
+       - "git clone https://github.com/mjudeikis/openshift-ansible-wrapper.git /root/openshift-ansible-wrapper"
 
-    - make:
-        chdir: /root/openshift-ansible-wrapper
-        target: setup   
+    - name: setup stuff
+      command: "make setup"
+      args: 
+        chdir: "/root/openshift-ansible-wrapper" 
 
     - name: Copy my config onto Bastion for dynamic invetory
       copy:
         src: "../{{ item }}"
-        dest: "~/openshift-ansible-wrapper/{{ item }}"
+        dest: "/root/openshift-ansible-wrapper/{{ item }}"
       with_items:
         - terraform/openshift-terraform-ansible/ec2/credentials.tfvars
         - terraform/openshift-terraform-ansible/ec2/config.tfvars
