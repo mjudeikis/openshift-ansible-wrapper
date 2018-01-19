@@ -3,7 +3,6 @@ os_firewall_use_firewalld: True
 
 ######## Openshift Default Config
 #config, needed to be updated each install
-ansible_ssh_private_key_file: /home/mjudeiki/.ssh/libra.pem
 openshift_master_cluster_hostname: ec2-54-85-4-243.compute-1.amazonaws.com
 openshift_master_cluster_public_hostname: ec2-54-85-4-243.compute-1.amazonaws.com
 openshift_master_default_subdomain: apps.54.84.83.81.xip.io
@@ -21,8 +20,6 @@ containerized: true
 # these are needed due: https://bugzilla.redhat.com/show_bug.cgi?id=1460999
 is_atomic: false
 is_containerized: true
-
-
 
 deployment_type: openshift-enterprise
 openshift_release: "v3.7"
