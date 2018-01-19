@@ -7,3 +7,4 @@ terraform/terraform*
 roles/docker
 roles/subscription
 roles/ssh
+terraform/inventory/terraform-inventory
