@@ -7,7 +7,7 @@ setup: setup-terraform setup-ocp-terraform setup-ansible
 
 setup-terraform:
 	wget ${TERRAFORM_ANSIBLE} -O /tmp/terraform.zip && \
-	unzip -o /tmp/terraform.zip -d ./terraform/ && \
+	unzip -o /tmp/terraform.zip -d ./terraform/inventory/ && \
 	wget ${TERRAFORM_BINARY} -O /tmp/terraform_binary.zip && \
 	unzip -o /tmp/terraform_binary.zip -d /usr/local/bin/
 
@@ -33,7 +33,7 @@ terraform-aws-apply:
 	make apply
 
 terraform-ansible-print:
-	./terraform/terraform-inventory --list ${TF_STATE} | python -m json.tool
+	./terraform/inventory/terraform-inventory --list ${TF_STATE} | python -m json.tool
 
 terraform-ansible-test:
 	echo "Masters" && \
@@ -44,41 +44,41 @@ terraform-ansible-test:
 	TF_STATE=${TF_STATE} ansible role_glusterfs -i ./terraform/terraform-inventory -a hostname
 
 terraform-ansible-install-bastion:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/install-bastion.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/install-bastion.yml
 
 terraform-ansible-install:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install.yml
 
 terraform-ansible-adhoc:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc.yml -v
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/adhoc.yml -v
 
 terraform-ansible-pre:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-pre.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-pre.yml
 
 terraform-ansible-post:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-post.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-post.yml
 
 terraform-ansible-uninstall:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-uninstall.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-uninstall.yml
 
 terraform-ansible-install-glusterfs:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-glusterfs.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-glusterfs.yml
 
 terraform-ansible-install-glusterfs-block:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-glusterfs-block.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-glusterfs-block.yml
 
 terraform-ansible-install-hosted:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-hosted.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-hosted.yml
 
 terraform-ansible-install-metrics:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-metrics.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-metrics.yml
 
 terraform-ansible-install-prometheus:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/ocp-install-prometheus.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-prometheus.yml
 
 terraform-ansible-restart-docker:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc-restart-docker.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/adhoc-restart-docker.yml
 
 terraform-ansible-restart-masterproc:
-	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/terraform-inventory playbooks/adhoc-restart-master-proc.yml
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/adhoc-restart-master-proc.yml
 
