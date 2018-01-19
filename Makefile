@@ -17,7 +17,13 @@ setup-ocp-terraform:
 	if [ -a ~/aws/credentials.tfvars ] ; \
 	then \
     	cp ~/aws/credentials.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
-	fi;
+        cp ~/aws/config.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
+	elif [ -a ~/.aws/credentials.tfvars ] ; \
+	then \
+        cp ~/.aws/credentials.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
+        cp ~/.aws/config.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
+	fi; \
+	
 
 setup-ansible:
 	ansible-galaxy install -r roles/requirements.yml -c && \
