@@ -23,22 +23,18 @@
         - python-passlib
         - httpd-tools
         - java-1.8.0-openjdk-headless
-
     - name: Clean artifact path
       file:
         state: absent
         path: "/root/openshift-ansible-wrapper"
-
     - name: clone ocp-ansible-wrapper project
       command: "{{ item }}"
       with_items:
        - "git clone https://github.com/mjudeikis/openshift-ansible-wrapper.git /root/openshift-ansible-wrapper"
-
     - name: setup stuff
       command: "make setup"
       args: 
         chdir: "/root/openshift-ansible-wrapper" 
-
     - name: Copy my config onto Bastion for dynamic invetory
       copy:
         src: "../{{ item }}"
@@ -48,3 +44,4 @@
         - terraform/openshift-terraform-ansible/ec2/config.tfvars
         - terraform/openshift-terraform-ansible/ec2/terraform.tfstate
         - group_vars/all.yml
+        - group_vars/.yml

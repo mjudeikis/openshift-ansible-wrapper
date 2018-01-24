@@ -41,6 +41,15 @@
    - invetory_provider == "terraform"
    - "{{ groups.role_glusterfs | default(false) }}"
 
+- name: overide groups for terraform
+  add_host: name={{ item[0] }} groups={{ item[1]}} 
+  with_nested: 
+   - "{{ groups['role_glusterfs_registry'] }}"
+   - [ 'glusterfs_registry', 'nodes' ]
+  when:
+   - invetory_provider == "terraform"
+   - "{{ groups.role_glusterfs_registry | default(false) }}"
+
 # our nodes has different set of labels. using group_vars we dont set labels on nodes as it would overwrite them on everything. we use worker for node labels.
 - name: overide groups for terraform
   add_host: name={{ item[0] }} groups={{ item[1]}} 

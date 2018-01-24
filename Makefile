@@ -18,10 +18,12 @@ setup-ocp-terraform:
 	then \
     	cp ~/aws/credentials.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
         cp ~/aws/config.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
+		cp ~/aws/all.yml ./group_vars/all.yml ; \
 	elif [ -a ~/.aws/credentials.tfvars ] ; \
 	then \
         cp ~/.aws/credentials.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
         cp ~/.aws/config.tfvars ./terraform/openshift-terraform-ansible/ec2/ ; \
+		cp ~/.aws/all.yml ./group_vars/all.yml ; \
 	fi; \
 	
 
