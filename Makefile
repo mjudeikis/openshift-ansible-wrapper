@@ -84,6 +84,12 @@ terraform-ansible-install-metrics:
 terraform-ansible-install-prometheus:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-prometheus.yml
 
+terraform-ansible-install-grafana:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-grafana.yml
+
+terraform-ansible-check-prerequisites:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-check-prerequisites.yml
+
 terraform-ansible-restart-docker:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/adhoc-restart-docker.yml
 

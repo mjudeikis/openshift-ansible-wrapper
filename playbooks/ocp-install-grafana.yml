@@ -6,4 +6,5 @@
   roles:
   - { role: ocp-terraform-pre, when: invetory_provider == "terraform" }
 
-- include: ../openshift-ansible/playbooks/deploy_cluster.yml
+- include: ../openshift-ansible/playbooks/openshift-grafana/config.yml
+ 

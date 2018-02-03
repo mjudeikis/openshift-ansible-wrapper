@@ -44,4 +44,4 @@
         - terraform/openshift-terraform-ansible/ec2/config.tfvars
         - terraform/openshift-terraform-ansible/ec2/terraform.tfstate
         - group_vars/all.yml
-        - group_vars/.yml
+        - group_vars/OSEv3.yml

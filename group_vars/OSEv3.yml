@@ -3,9 +3,9 @@ os_firewall_use_firewalld: True
 
 ######## Openshift Default Config
 #config, needed to be updated each install
-openshift_master_cluster_hostname: ec2-54-147-195-115.compute-1.amazonaws.com
-openshift_master_cluster_public_hostname: ec2-54-147-195-115.compute-1.amazonaws.com
-openshift_master_default_subdomain: apps.35.153.127.249.xip.io
+openshift_master_cluster_hostname: ec2-54-164-16-138.compute-1.amazonaws.com
+openshift_master_cluster_public_hostname: ec2-54-164-16-138.compute-1.amazonaws.com
+openshift_master_default_subdomain: apps.75.101.188.171.xip.io
 #openshift_hosted_router_force_subdomain: "'${name}-${namespace}.apps.52.201.123.133.xip.io'"
 
 openshift_disable_check: memory_availability
@@ -14,6 +14,9 @@ ansible_service_broker_install: false
 #deploy gluster block
 openshift_storage_glusterfs_registry_block_deploy: true
 openshift_storage_glusterfs_block_deploy: true
+openshift_storage_glusterfs_block_host_vol_size: 10
+openshift_storage_glusterfs_block_storageclass: True
+openshift_storage_glusterfs_storageclass_default: True
 
 #static config
 containerized: true
@@ -22,7 +25,9 @@ is_atomic: false
 is_containerized: true
 
 deployment_type: openshift-enterprise
-#openshift_release: "v3.9"
+openshift_release: "v3.7"
+openshift_image_tag: v3.7.23
+openshift_version: 3.7.23
 openshift_docker_additional_registries: registry.access.redhat.com
 openshift_docker_disable_push_dockerhub: True
 openshift_docker_options: "--selinux-enabled --log-driver=json-file --log-opt max-size=50m --ipv6=false"
@@ -113,3 +118,14 @@ openshift_hosted_registry_storage_kind: glusterfs
 #openshift_builddefaults_git_https_proxy: https://proxy.xxxxxxx:8080
 
 
+# Logging
+openshift_logging_install_logging: true
+openshift_logging_es_memory_limit: 1G
+openshift_logging_fluentd_memory_limit: 1G
+#openshift_logging_kibana_hostname=kibana.example.com
+#openshift_logging_master_public_url=https://master
+openshift_logging_curator_nodeselector: "{'type': 'infra'}"
+openshift_logging_kibana_nodeselector: "{'type': 'infra'}"
+openshift_logging_es_nodeselector: "{'type': 'infra'}"
+#openshift_logging_elasticsearch_storage_type=pvc
+#openshift_logging_elasticsearch_pvc_storage_class_name="gluster-block-reg"
