@@ -81,8 +81,14 @@ terraform-ansible-install-hosted:
 terraform-ansible-install-metrics:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-metrics.yml
 
+terraform-ansible-install-logging:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-logging.yml
+
 terraform-ansible-install-prometheus:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-prometheus.yml
+
+terraform-ansible-uninstall-prometheus:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-uninstall-prometheus.yml
 
 terraform-ansible-install-grafana:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-grafana.yml
