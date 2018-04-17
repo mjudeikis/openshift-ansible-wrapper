@@ -1,1 +1,1 @@
-openshift_node_labels: "{'type':'control','logging-infra-fluentd':'true', 'zone': 'az1'}"
+openshift_node_labels: "{'node-role.kubernetes.io/datastore':'true','logging-infra-fluentd':'true', 'zone': 'az1', 'region':'uk'}"

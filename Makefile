@@ -93,6 +93,9 @@ terraform-ansible-uninstall-prometheus:
 terraform-ansible-install-grafana:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-grafana.yml
 
+terraform-ansible-scaleup-etcd:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-etcd-scaleup.yml
+
 terraform-ansible-check-prerequisites:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-check-prerequisites.yml
 

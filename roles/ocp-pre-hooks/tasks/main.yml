@@ -6,4 +6,13 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ ocp_pre_packages }}"
-  when: not containerized == true
+  when: not is_atomic == true
+
+- name: update nodes
+  command: "yum update -y --disablerepo=rh-gluster-3-for-rhel-7-server-rpms"
+  when: not is_atomic == true
+
+- name: firewalld started
+  systemd:
+    name: firewalld
+    state: started

@@ -7,8 +7,11 @@
 
 - hosts: all
   roles:
-   - ocp-pre-hooks
    - subscription
+   - ocp-pre-hooks
+
+- hosts: all:!bastion
+  roles:
    - docker
 
 - hosts: masters

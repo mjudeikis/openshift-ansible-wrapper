@@ -1,2 +1,2 @@
 glusterfs_devices: ["/dev/xvdd"]
-openshift_node_labels: "{'type':'storage','logging-infra-fluentd':'true', 'zone': 'az1'}"
+openshift_node_labels: "{'node-role.kubernetes.io/compute':'true','node-role.kubernetes.io/storage':'true','logging-infra-fluentd':'true', 'zone': 'az1', 'region':'uk'}"
