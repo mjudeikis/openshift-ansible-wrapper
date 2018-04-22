@@ -30,8 +30,7 @@ setup-ocp-terraform:
 setup-ansible:
 	ansible-galaxy install -r roles/requirements.yml -c && \
 	rm -rf ./openshift-ansible && \
-	git clone https://github.com/openshift/openshift-ansible.git -b release-3.7
-
+	git clone https://github.com/openshift/openshift-ansible.git -b release-3.9
 terraform-aws-plan:
 	cd terraform/openshift-terraform-ansible/ec2 && \
 	make plan

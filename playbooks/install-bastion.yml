@@ -23,6 +23,7 @@
         - python-passlib
         - httpd-tools
         - java-1.8.0-openjdk-headless
+        - screen
     - name: Clean artifact path
       file:
         state: absent
