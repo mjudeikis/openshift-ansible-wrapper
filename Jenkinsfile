@@ -2,7 +2,7 @@
 def playbook_dir = "playbooks"
 def inventory_dir = "inventory"
 
-node('localhost') {
+node('master') {
     stage('Initial setup') {
         deleteDir()
         checkout scm
