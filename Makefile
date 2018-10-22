@@ -9,7 +9,7 @@ setup-terraform:
 	wget ${TERRAFORM_ANSIBLE} -O /tmp/terraform.zip && \
 	unzip -o /tmp/terraform.zip -d ./terraform/inventory/ && \
 	wget ${TERRAFORM_BINARY} -O /tmp/terraform_binary.zip && \
-	unzip -o /tmp/terraform_binary.zip -d /usr/local/bin/
+	sudo unzip -o /tmp/terraform_binary.zip -d /usr/local/bin/
 
 setup-ocp-terraform:
 	rm -rf ./terraform/openshift-terraform-ansible && \
@@ -30,7 +30,7 @@ setup-ocp-terraform:
 setup-ansible:
 	ansible-galaxy install -r roles/requirements.yml -c && \
 	rm -rf ./openshift-ansible && \
-	git clone https://github.com/openshift/openshift-ansible.git -b release-3.9
+	git clone https://github.com/openshift/openshift-ansible.git -b release-3.11
 terraform-aws-plan:
 	cd terraform/openshift-terraform-ansible/ec2 && \
 	make plan
