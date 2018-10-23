@@ -10,10 +10,6 @@
    - subscription
    - ocp-pre-hooks
 
-- hosts: all:!bastion
-  roles:
-   - docker
-
 - hosts: masters
   roles:
    - ocp-pre-hooks-masters
