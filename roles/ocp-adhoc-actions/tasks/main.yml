@@ -1,4 +1,4 @@
 ---
 # for those "hackerman" who do not use sub manager and thinks that this is good way to manage repos :)
   - name: command
-    shell: "yum upgrade --disablerepo=* --enablerepo=rhel-7-server-rpms -y"
+    shell: "sudo systemctl restart dbus; sudo systemctl restart dnsmasq"
