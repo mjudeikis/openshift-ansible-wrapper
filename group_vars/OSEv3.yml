@@ -3,9 +3,9 @@ os_firewall_use_firewalld: False
 
 ######## Openshift Default Config
 #config, needed to be updated each install
-openshift_master_cluster_hostname: ec2-54-158-154-142.compute-1.amazonaws.com
-openshift_master_cluster_public_hostname: ec2-54-158-154-142.compute-1.amazonaws.com
-openshift_master_default_subdomain: apps.54.87.247.128.xip.io
+openshift_master_cluster_hostname: ec2-100-24-14-158.compute-1.amazonaws.com
+openshift_master_cluster_public_hostname: ec2-100-24-14-158.compute-1.amazonaws.com
+openshift_master_default_subdomain: apps.107.22.59.203.xip.io
 
 openshift_disable_check: memory_availability,docker_image_availability
 ansible_service_broker_install: true
@@ -13,7 +13,7 @@ ansible_service_broker_install: true
 openshift_enable_service_catalog: true
 
 openshift_use_crio: True
-openshift_node_group_name: "node-config-compute-crio"
+#openshift_node_group_name: "node-config-compute-crio"
 
 deployment_type: openshift-enterprise
 openshift_release: "v3.11"

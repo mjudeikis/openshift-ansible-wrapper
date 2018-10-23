@@ -53,6 +53,9 @@ terraform-ansible-test:
 terraform-ansible-install-bastion:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/install-bastion.yml
 
+terraform-ansible-install-pre:
+	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install-pre.yml
+
 terraform-ansible-install:
 	TF_STATE=${TF_STATE} ansible-playbook --inventory-file=./terraform/inventory/ playbooks/ocp-install.yml
 
