@@ -1,1 +1,2 @@
-openshift_node_labels: "{'node-role.kubernetes.io/compute':'true','logging-infra-fluentd':'true', 'zone': 'az1', 'region':'uk'}"
+openshift_node_labels: "{'logging-infra-fluentd':'true', 'zone': 'az1', 'region':'uk'}"
+openshift_node_group_name: "node-config-compute-crio"
